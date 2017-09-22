@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+
+    <head lang="en">
+        <meta charset="UTF-8">
+        <title></title>
+    </head>
+
+    <body>
+        <form action="{% url 'orders:reset_delivery_cost' %}" method="post">
+            {% csrf_token %}
+            Delivery cost <input type="number" name="delivery_cost" value=""><br><br>
+            <input type="submit" value="Submit">
+        </form>
+    </body>
+</html>

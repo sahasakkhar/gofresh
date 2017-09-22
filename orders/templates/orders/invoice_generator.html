@@ -1,0 +1,126 @@
+{% load mathfilters %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
+
+    <title>Editable Invoice</title>
+
+
+</head>
+
+<body>
+
+<div id="page-wrap" style="max-width: 100%">
+    <table border="0" width="100%">
+        <tr>
+            <td width="50%">
+                <b style="font-size: 20px;">Go Fresh</b><br/>
+                <span style="color: #666666">Go Fresh, Live Fresh</span><br/>
+                18th Floor, 40 Kamal Ataturk,<br/>
+                Banani, Dhaka 1213<br/>
+
+            </td>
+            <td align="right" width="50%">
+                <img width="50" style="padding-bottom: 10px; padding-top: 50px;"
+                     src="https://gofreshergo.s3.amazonaws.com/logo.jpg"/><br/>
+                INVOICE #{{ order.invoice_number }}<br/>
+                DATE: {{ order.delivery_date }}
+            </td>
+        </tr>
+    </table>
+
+    <br/><br/>
+    <table border="0" width="100%">
+        <tr>
+            <td width="50%">
+                TO:<br/>
+                {{ order.user_profile.name }}<br/>
+                {{ order.delivery_information.area }},{{ order.delivery_information.road_no }}<br/>
+                {{ order.delivery_information.address_detail }} <br/>
+                Phone: {{ order.delivery_information.product_receiver_phone }}
+            </td>
+            <td align="right" width="50%">
+
+            </td>
+        </tr>
+    </table>
+
+    </br>
+    </br>
+    <table border="0" width="100%" class="item_amount" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>ITEM</th>
+            <th>QUANTITY</th>
+            <th>UNIT PRICE</th>
+            <th>AMOUNT</th>
+
+        </tr>
+
+        {% for each in products_in_order %}
+            <tr>
+                <td><span>{{ each.product.name }}</span></td>
+                <td align="center"><span class="qty">{{ each.quantity }}</span></td>
+                <td align="center"><span class="cost">Tk. {{ each.product.real_price }}</span></td>
+                <td align="center"><span class="price">Tk. {{ each.product.real_price|mul:each.quantity }}</span></td>
+            </tr>
+        {% endfor %}
+
+        <tr>
+            <td><span> Delivery cost</span></td>
+            <td align="center"></td>
+            <td align="center">Tk. {{ delivery_cost }}</td>
+            <td align="center">Tk. {{ delivery_cost }}</td>
+        </tr>
+
+        <tr>
+            <td><span> Vat </span></td>
+            <td align="center"></td>
+            <td align="center">Tk. {{ vat }}</td>
+            <td align="center">Tk. {{ vat }}</td>
+        </tr>
+
+
+        <tr>
+            <td class="last_item" align="right" colspan="3">Total:</td>
+            <td class="last_item">Tk. {{ total_price }}</td>
+        </tr>
+    </table>
+
+
+</div>
+
+</body>
+
+<style>
+    .item_amount td {
+        border-left: 1px solid #000000;
+        border-collapse: collapse;
+
+    }
+
+    .item_amount {
+        border: 1px solid #000000;
+        border-left: 0;
+        border-bottom: 0;
+    }
+
+    th {
+        border: 1px solid #000000;
+    }
+
+    .last_item {
+        border-bottom: 1px solid #000000;
+        border-top: 1px solid #000000;
+
+    }
+
+    body {
+        font-family: Arial, "Times New Roman", Georgia, Serif;
+    }
+
+</style>
+
+</html>

@@ -1,0 +1,6 @@
+__pycache__/
+*.py[cod]
+*.sqlite3
+.idea/
+local_settings.pysendgrid.env
+sendgrid.env
